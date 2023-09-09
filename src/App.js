@@ -12,6 +12,24 @@ function App() {
     const [statuses, setStatuses] = useState([]);
     const [priorities, setPriorities] = useState([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
 
+    const  deleteTask = (id) => {
+       axios.delete(`http://localhost:3001/tasks/${id}`)
+           .then((res) =>
+             getTasks()
+           )
+           .catch((error) => alert('Cannot delete'))
+    }
+    const  changeTaskStatus = (task, direction) => {
+        const newStatusesStringArray = statuses.map((status) => status.name);
+        const currentStatusIndex = newStatusesStringArray.indexOf(task.status);
+        const newStatusIndex = currentStatusIndex + (direction === 'right' ? +1 : -1);
+        const newStatus = newStatusesStringArray[newStatusIndex];
+        axios.patch(`http://localhost:3001/tasks/${task._id}`, {status: newStatus})
+            .then((res) =>
+               getTasks()
+            )
+            .catch((error) => alert('Failed'))
+    }
   const getStatuses = () => {
       axios.get('http://localhost:3001/statuses')
           .then((res) =>
@@ -71,6 +89,8 @@ function App() {
                               key={status._id}
                               changeTask={changeTask}
                               priorities={priorities}
+                              changeTaskStatus={changeTaskStatus}
+                              deleteTask={deleteTask}
 
                       />
                   )}

@@ -1,7 +1,7 @@
 import React from 'react';
 import Card from "./Card";
 
-const Column = ({status,tasks,changeTask,priorities}) => {
+const Column = ({status,tasks,changeTask,priorities,changeTaskStatus,deleteTask}) => {
     return (
         <div className="col">
          <h2>{status.name}</h2>
@@ -10,6 +10,8 @@ const Column = ({status,tasks,changeTask,priorities}) => {
                    key={task._id}
                   changeTask={changeTask}
                   priorities={priorities}
+                  changeTaskStatus={changeTaskStatus}
+                  deleteTask={deleteTask}
             />
             )}
 

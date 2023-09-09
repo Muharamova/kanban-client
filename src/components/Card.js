@@ -1,6 +1,7 @@
 import React from 'react';
+import DeleteModal from "./DeleteModal";
 
-const Card = ({task, changeTask, priorities}) => {
+const Card = ({task, changeTask, priorities,changeTaskStatus, deleteTask}) => {
 
     return (
         <div className="card">
@@ -28,8 +29,22 @@ const Card = ({task, changeTask, priorities}) => {
                     </button>
 
                 </p>
+                <button  type="button" className="btn btn-outline-primary"
+                         onClick={() => changeTaskStatus(task, 'left')}
+                         //disabled={}
 
-                <a href="#" className="btn btn-primary">Go somewhere</a>
+                > ← </button>
+                {'  '}
+                <button  type="button" className="btn btn-outline-primary"
+                > Update </button>
+                <DeleteModal
+                         task={task}
+                         deleteTask={deleteTask}
+                />
+                {'  '}
+                <button  type="button" className="btn btn-outline-primary"
+                         onClick={() => changeTaskStatus(task, 'right')}
+                > → </button>
 
             </div>
         </div>
